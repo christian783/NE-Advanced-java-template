@@ -1,6 +1,7 @@
 package io.app.my_app.model;
 
 import io.app.my_app.model.enums.Role;
+import io.app.my_app.model.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,13 +25,27 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue
     private UUID id;
-    private String firstname;
-    private String lastname;
+
+    @Column(name = "full_name", nullable = false)
+    private String fullName;
+
+    @Column(name = "phone_number", nullable=false)
+    private String phoneNumber;
+
+    @Column(unique = true, nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
+
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private UserStatus status = UserStatus.ACTIVE;
 
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
@@ -67,6 +82,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return status == UserStatus.ACTIVE;
     }
 }

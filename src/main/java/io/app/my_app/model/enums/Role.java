@@ -2,43 +2,48 @@ package io.app.my_app.model.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import static io.app.my_app.model.enums.Permission.ADMIN_CREATE;
-import static io.app.my_app.model.enums.Permission.ADMIN_DELETE;
-import static io.app.my_app.model.enums.Permission.ADMIN_READ;
-import static io.app.my_app.model.enums.Permission.ADMIN_UPDATE;
-import static io.app.my_app.model.enums.Permission.MANAGER_CREATE;
-import static io.app.my_app.model.enums.Permission.MANAGER_DELETE;
-import static io.app.my_app.model.enums.Permission.MANAGER_READ;
-import static io.app.my_app.model.enums.Permission.MANAGER_UPDATE;
+
+import static io.app.my_app.model.enums.Permission.*;
 
 @RequiredArgsConstructor
 public enum Role {
 
-    USER(Collections.emptySet()),
     ADMIN(
             Set.of(
                     ADMIN_READ,
                     ADMIN_UPDATE,
                     ADMIN_DELETE,
-                    ADMIN_CREATE,
-                    MANAGER_READ,
-                    MANAGER_UPDATE,
-                    MANAGER_DELETE,
-                    MANAGER_CREATE
+                    ADMIN_CREATE
             )
     ),
-    MANAGER(
+    OPERATOR(
             Set.of(
-                    MANAGER_READ,
-                    MANAGER_UPDATE,
-                    MANAGER_DELETE,
-                    MANAGER_CREATE
+                    OPERATOR_READ,
+                    OPERATOR_UPDATE,
+                    OPERATOR_CREATE,
+                    OPERATOR_DELETE
+            )
+    ),
+    FINANCE(
+            Set.of(
+                    FINANCE_CREATE,
+                    FINANCE_READ,
+                    FINANCE_DELETE,
+                    FINANCE_UPDATE
+            )
+    ),
+    CUSTOMER(
+            Set.of(
+                   CUSTOMER_CREATE,
+                   CUSTOMER_READ,
+                   CUSTOMER_UPDATE,
+                   CUSTOMER_DELETE
             )
     )
 
@@ -54,5 +59,10 @@ public enum Role {
                 .collect(Collectors.toList());
         authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
         return authorities;
+    }
+
+    @Override
+    public String toString() {
+        return this.name();
     }
 }
