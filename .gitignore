@@ -14,7 +14,6 @@ application-local.properties
 *.ipr
 
 ## VS Code
-.vscode/
 
 ## STS
 .apt_generated
@@ -34,3 +33,7 @@ application-local.properties
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore
