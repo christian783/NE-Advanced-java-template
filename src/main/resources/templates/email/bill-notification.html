@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #082dd2 0%, #1a3ba6 100%);
+            color: white;
+            padding: 35px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 26px;
+        }
+        .header p {
+            margin: 8px 0 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 30px 20px;
+        }
+        .greeting {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .bill-details {
+            background-color: #f9f9f9;
+            border-left: 4px solid #082dd2;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 4px;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            font-weight: 600;
+            color: #555;
+        }
+        .detail-value {
+            color: #333;
+            text-align: right;
+        }
+        .amount-due {
+            padding: 8px 0;
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: bold;
+            color: #082dd2;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #082dd2;
+        }
+        .amount-due-value {
+            color: #d32f2f;
+        }
+        .due-date-section {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .due-date-section strong {
+            color: #856404;
+        }
+        .due-date-text {
+            color: #856404;
+            margin-top: 8px;
+        }
+        .action-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 12px 35px;
+            background-color: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .cta-button:hover {
+            background-color: #5568d3;
+        }
+        .footer {
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            border-top: 1px solid #ddd;
+        }
+        .footer-note {
+            margin-top: 10px;
+            color: #999;
+        }
+        .highlight {
+            background-color: #fffbea;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        li {
+            margin: 8px 0;
+            color: #555;
+        }
+        a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📄 Utility Bill Generated</h1>
+            <p>Your monthly utility bill is ready</p>
+        </div>
+
+        <div class="content">
+            <div class="greeting" th:text="'Dear ' + ${customerName} + ','">
+                Dear Customer,
+            </div>
+
+            <p>Your utility bill has been successfully generated and is now available for payment. Please review the details below:</p>
+
+            <div class="bill-details">
+                <div class="detail-row">
+                    <span class="detail-label">Billing Period:</span>
+                    <span class="detail-value" th:text="${billMonth} + '/' + ${billYear}">January/2026</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Bill Reference:</span>
+                    <span class="detail-value" th:text="${billReference}">BL-2026-001</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Consumption:</span>
+                    <span class="detail-value" th:text="${consumption}">250.50 units</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Unit Charge:</span>
+                    <span class="detail-value" th:text="${unitCharge}">500 FRW</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Fixed Charge:</span>
+                    <span class="detail-value" th:text="${fixedCharge}">2,000 FRW</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">VAT (18%):</span>
+                    <span class="detail-value" th:text="${vat}">45,500 FRW</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Late Payment Penalty:</span>
+                    <span class="detail-value" th:text="${penalty}">0 FRW</span>
+                </div>
+                <div class="amount-due">
+                    <span>TOTAL AMOUNT DUE:</span>
+                    <span class="amount-due-value" th:text="${totalAmount}">253,000 FRW</span>
+                </div>
+            </div>
+
+            <div class="due-date-section">
+                <strong>⏰ Important Deadline</strong>
+                <div class="due-date-text" th:text="'Please pay by ' + ${dueDate} + ' to avoid late fees.'">
+                    Please pay by January 31, 2026 to avoid late fees.
+                </div>
+            </div>
+
+            <div class="action-section">
+                <p>Log in to your account to view the full bill and make a payment:</p>
+                <a href="#" class="cta-button">View & Pay Bill</a>
+            </div>
+
+            <div class="highlight">
+                <strong>Payment Methods Accepted:</strong>
+                <ul>
+                    <li>Bank Transfer</li>
+                    <li>Mobile Money</li>
+                    <li>Direct Debit</li>
+                    <li>In-Person Payment</li>
+                </ul>
+            </div>
+
+            <p>If you have any questions or concerns about this bill, please don't hesitate to contact our customer service team.</p>
+
+            <p>Best regards,<br/><strong>The Utility Billing Team</strong></p>
+        </div>
+
+        <div class="footer">
+            <p>© 2026 Utility Billing System. All rights reserved.</p>
+            <div class="footer-note">
+                You're receiving this email because it's associated with your account.
+                <a href="#">Manage preferences</a>
+            </div>
+            <p style="margin-top: 15px;">
+                Need help? Contact us at <a href="mailto:support@myapp.local">support@myapp.local</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+
