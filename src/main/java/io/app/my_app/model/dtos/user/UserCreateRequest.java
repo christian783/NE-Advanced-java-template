@@ -2,10 +2,7 @@ package io.app.my_app.model.dtos.user;
 
 import io.app.my_app.model.enums.Role;
 import io.app.my_app.model.enums.UserStatus;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Data
@@ -21,6 +18,7 @@ public class UserCreateRequest {
     private String email;
 
     @NotBlank(message = "{validation.auth.phone.required}")
+    @Pattern(regexp = "^\\+2507\\d{8}$", message = "invalid phone number format. Expected format: +2507XXXXXXXX")
     private String phoneNumber;
 
     @NotBlank(message = "{validation.auth.password.required}")

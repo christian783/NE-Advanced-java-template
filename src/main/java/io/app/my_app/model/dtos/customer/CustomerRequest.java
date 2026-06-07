@@ -1,10 +1,7 @@
 package io.app.my_app.model.dtos.customer;
 
 import io.app.my_app.model.enums.UtilityStatus;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.format.annotation.NumberFormat;
 
@@ -24,6 +21,7 @@ public class CustomerRequest {
     private String email;
 
     @NotBlank(message = "{validation.customer.phone.required}")
+    @Pattern(regexp = "^\\+2507\\d{8}$", message = "Invalid phone number format. Expected format: +2507XXXXXXXX")
     private String phoneNumber;
 
     @NotBlank(message = "{validation.customer.address.required}")

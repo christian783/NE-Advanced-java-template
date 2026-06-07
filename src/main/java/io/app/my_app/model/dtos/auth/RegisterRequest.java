@@ -24,7 +24,7 @@ public class RegisterRequest {
     private String email;
 
     @NotBlank(message = "{validation.auth.phone.required}")
-    @Pattern(regexp = "^\\\\+2507\\\\d{8}$", message = "invalid phone number format. Expected format: +2507XXXXXXXX")
+    @Pattern(regexp = "^\\+2507\\d{8}$", message = "invalid phone number format. Expected format: +2507XXXXXXXX")
     private String phoneNumber;
 
     @NotBlank(message = "{validation.auth.password.required}")

@@ -54,7 +54,7 @@ public class UserManagementController {
     })
     public ResponseEntity<ApiWrapper<Page<UserResponse>>> findAll(
             @ParameterObject UserFilter filter,
-            @ParameterObject @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
+            @ParameterObject @PageableDefault(sort = "fullName", direction = Sort.Direction.ASC) Pageable pageable
     ) {
         return new ApiWrapper<>(userManagementService.findAll(filter, pageable), localize("responses.user.list"), HttpStatus.OK).toResponseEntity();
     }
