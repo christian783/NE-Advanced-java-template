@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+            color: white;
+            padding: 35px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 26px;
+        }
+        .header p {
+            margin: 8px 0 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 30px 20px;
+        }
+        .greeting {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .success-banner {
+            background-color: #c8e6c9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #1b5e20;
+            font-weight: 500;
+        }
+        .payment-details {
+            background-color: #f9f9f9;
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 4px;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            font-weight: 600;
+            color: #555;
+        }
+        .detail-value {
+            color: #333;
+            text-align: right;
+        }
+        .amount-paid {
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: bold;
+            color: #4caf50;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #4caf50;
+        }
+        .amount-paid-value {
+            color: #2e7d32;
+        }
+        .balance-section {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .balance-section strong {
+            color: #1565c0;
+        }
+        .balance-text {
+            color: #1565c0;
+            margin-top: 8px;
+        }
+        .no-balance {
+            background-color: #c8e6c9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #1b5e20;
+        }
+        .action-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 12px 35px;
+            background-color: #4caf50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .cta-button:hover {
+            background-color: #388e3c;
+        }
+        .receipt-section {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .receipt-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .receipt-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 14px;
+        }
+        .footer {
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            border-top: 1px solid #ddd;
+        }
+        .footer-note {
+            margin-top: 10px;
+            color: #999;
+        }
+        .highlight {
+            background-color: #fffbea;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        li {
+            margin: 8px 0;
+            color: #555;
+        }
+        a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✓ Payment Received</h1>
+            <p>Your payment has been successfully processed</p>
+        </div>
+
+        <div class="content">
+            <div class="greeting" th:text="'Dear ' + ${customerName} + ','">
+                Dear Customer,
+            </div>
+
+            <div class="success-banner">
+                ✓ Thank you! Your payment of <strong th:text="${amountPaid}">50,000 FRW</strong> has been successfully received and processed.
+            </div>
+
+            <p>Here's a summary of your payment:</p>
+
+            <div class="payment-details">
+                <div class="detail-row">
+                    <span class="detail-label">Bill Reference:</span>
+                    <span class="detail-value" th:text="${billReference}">BL-2026-001</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Billing Period:</span>
+                    <span class="detail-value" th:text="${billMonth} + '/' + ${billYear}">January/2026</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Payment Date:</span>
+                    <span class="detail-value" th:text="${paymentDate}">January 15, 2026</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Payment Method:</span>
+                    <span class="detail-value" th:text="${paymentMethod}">Bank Transfer</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Reference Number:</span>
+                    <span class="detail-value" th:text="${referenceNumber}">REF-2026-001-001</span>
+                </div>
+                <div class="amount-paid">
+                    <span>AMOUNT PAID:</span>
+                    <span class="amount-paid-value" th:text="${amountPaid}">50,000 FRW</span>
+                </div>
+            </div>
+
+            <div th:if="${balanceAfter} > 0" class="balance-section">
+                <strong>💡 Outstanding Balance Remaining</strong>
+                <div class="balance-text" th:text="'You still have an outstanding balance of ' + ${balanceAfter} + ' FRW.'"
+                     style="margin-top: 8px;">
+                    You still have an outstanding balance of 50,000 FRW.
+                </div>
+                <p style="margin-top: 10px; color: #1565c0;">
+                    Please settle this balance before the due date to avoid late charges.
+                </p>
+            </div>
+
+            <div th:if="${balanceAfter} == 0" class="no-balance">
+                <strong>✓ Bill Fully Paid</strong>
+                <p style="margin: 8px 0 0;">
+                    Congratulations! Your bill has been fully paid. Thank you for your prompt payment.
+                </p>
+            </div>
+
+            <div class="receipt-section">
+                <div class="receipt-title">Payment Receipt Details:</div>
+                <div class="receipt-item">
+                    <span>Previous Balance:</span>
+                    <span th:text="${balanceBefore}">100,000 FRW</span>
+                </div>
+                <div class="receipt-item">
+                    <span>Amount Paid:</span>
+                    <span th:text="${amountPaid}">50,000 FRW</span>
+                </div>
+                <div class="receipt-item">
+                    <span style="font-weight: 600; color: #333;">New Balance:</span>
+                    <span style="font-weight: 600; color: #333;" th:text="${balanceAfter}">50,000 FRW</span>
+                </div>
+            </div>
+
+            <div class="action-section">
+                <p>Access your account to view detailed bill information and payment history:</p>
+                <a href="#" class="cta-button">View Account</a>
+            </div>
+
+            <div class="highlight">
+                <strong>What Happens Next?</strong>
+                <ul>
+                    <li>Your payment has been recorded in our system</li>
+                    <li>A detailed receipt has been attached to your account</li>
+                    <li>You will receive your next bill on the scheduled date</li>
+                    <li>If you have any discrepancies, please contact us immediately</li>
+                </ul>
+            </div>
+
+            <p>If you did not make this payment or have any questions, please contact our customer service team immediately at <a href="mailto:support@myapp.local">support@myapp.local</a>.</p>
+
+            <p>Best regards,<br/><strong>The Utility Billing Team</strong></p>
+        </div>
+
+        <div class="footer">
+            <p>© 2026 Utility Billing System. All rights reserved.</p>
+            <div class="footer-note">
+                You're receiving this email because it's associated with your account.
+                <a href="#">Manage preferences</a>
+            </div>
+            <p style="margin-top: 15px;">
+                Need help? Contact us at <a href="mailto:support@myapp.local">support@myapp.local</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+
